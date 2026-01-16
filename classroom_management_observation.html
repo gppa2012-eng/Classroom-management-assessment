@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Management Practice Observation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .info-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-field label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .info-field input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .rating-guide {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .rating-guide h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .rating-guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .rating-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        .rating-item .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1976D2;
+        }
+        
+        .rating-item .label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .practice-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .practice-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .practice-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .practice-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2196F3;
+            min-width: 30px;
+        }
+        
+        .practice-text {
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .practice-text .example {
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .rating-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .rating-btn {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            min-width: 120px;
+        }
+        
+        .rating-btn:hover {
+            border-color: #2196F3;
+            background: #f0f7ff;
+        }
+        
+        .rating-btn.selected {
+            background: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        
+        .rating-btn .rating-number {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .rating-btn .rating-label {
+            font-size: 12px;
+            display: block;
+            margin-top: 2px;
+        }
+        
+        .score-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 2px solid #2196F3;
+        }
+        
+        .score-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .score-display {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2196F3;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .score-rating {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .score-range {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        .score-range .range {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .score-range .category {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .comments-section {
+            margin-top: 20px;
+        }
+        
+        .comments-section label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .comments-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1976D2;
+        }
+        
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #616161;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                display: none;
+            }
+            
+            .rating-btn:not(.selected) {
+                opacity: 0.3;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-guide-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .score-breakdown {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-buttons {
+                flex-direction: column;
+            }
+            
+            .rating-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Classroom Management Practice Observation</h1>
+        
+        <div class="info-section">
+            <div class="info-field">
+                <label>Teacher Name:</label>
+                <input type="text" id="teacherName" placeholder="Enter teacher name">
+            </div>
+            <div class="info-field">
+                <label>Observer Name:</label>
+                <input type="text" id="observerName" placeholder="Enter observer name">
+            </div>
+            <div class="info-field">
+                <label>Date:</label>
+                <input type="date" id="observationDate">
+            </div>
+            <div class="info-field">
+                <label>Grade/Subject:</label>
+                <input type="text" id="gradeSubject" placeholder="Enter grade/subject">
+            </div>
+        </div>
+        
+        <div class="rating-guide">
+            <h3>Rating Scale</h3>
+            <div class="rating-guide-grid">
+                <div class="rating-item">
+                    <div class="number">1</div>
+                    <div class="label">Rarely</div>
+                </div>
+                <div class="rating-item">
+                    <div class="number">2</div>
+                    <div class="label">Sometimes</div>
+                </div>
+                <div class="rating-item">
+                    <div class="number">3</div>
+                    <div class="label">Usually</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="practiceItems"></div>
+        
+        <div class="score-section">
+            <h3>Overall Classroom Management Score</h3>
+            <div class="score-display" id="totalScore">0 / 30</div>
+            <div class="score-rating" id="scoreRating">Complete all ratings</div>
+            
+            <div class="score-breakdown">
+                <div class="score-range">
+                    <div class="range">25-30</div>
+                    <div class="category">Super</div>
+                </div>
+                <div class="score-range">
+                    <div class="range">17-24</div>
+                    <div class="category">So-So</div>
+                </div>
+                <div class="score-range">
+                    <div class="range">10-16</div>
+                    <div class="category">Improvement Needed</div>
+                </div>
+            </div>
+            
+            <div class="comments-section">
+                <label>Comments/Observations:</label>
+                <textarea id="comments" placeholder="Enter any additional comments or observations..."></textarea>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="printForm()">Print/Save as PDF</button>
+            <button class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+        </div>
+    </div>
+
+    <script>
+        const practices = [
+            {
+                number: 1,
+                text: "I have arranged my classroom to minimize crowding and distraction"
+            },
+            {
+                number: 2,
+                text: "I have maximized structure and predictability in my classroom",
+                example: "e.g., explicit classroom routines, specific directions, etc."
+            },
+            {
+                number: 3,
+                text: "I have posted, taught, reviewed, and reinforced 3-5 positively stated expectations",
+                example: "or rules"
+            },
+            {
+                number: 4,
+                text: "I provided more frequent acknowledgement for appropriate behaviors than inappropriate behaviors",
+                example: "See top of page"
+            },
+            {
+                number: 5,
+                text: "I provided each student with multiple opportunities to respond and participate during instruction"
+            },
+            {
+                number: 6,
+                text: "My instruction actively engaged students in observable ways",
+                example: "e.g., writing, verbalizing"
+            },
+            {
+                number: 7,
+                text: "I actively supervised my classroom during instruction",
+                example: "e.g., moving, scanning"
+            },
+            {
+                number: 8,
+                text: "I provided quick, direct, explicit reprimands/redirections in response to inappropriate behavior"
+            },
+            {
+                number: 9,
+                text: "I have multiple strategies/systems in place to acknowledge appropriate behavior",
+                example: "e.g., class point systems, praise, etc."
+            },
+            {
+                number: 10,
+                text: "In general, I have provided specific feedback in response to social and academic behavior errors and correct responses"
+            }
+        ];
+
+        let ratings = {};
+
+        function initializeForm() {
+            const container = document.getElementById('practiceItems');
+            
+            practices.forEach(practice => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'practice-item';
+                
+                itemDiv.innerHTML = `
+                    <div class="practice-header">
+                        <div class="practice-number">${practice.number}.</div>
+                        <div class="practice-text">
+                            ${practice.text}
+                            ${practice.example ? `<div class="example">${practice.example}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" onclick="setRating(${practice.number}, 1)">
+                            <span class="rating-number">1</span>
+                            <span class="rating-label">Rarely</span>
+                        </button>
+                        <button class="rating-btn" onclick="setRating(${practice.number}, 2)">
+                            <span class="rating-number">2</span>
+                            <span class="rating-label">Sometimes</span>
+                        </button>
+                        <button class="rating-btn" onclick="setRating(${practice.number}, 3)">
+                            <span class="rating-number">3</span>
+                            <span class="rating-label">Usually</span>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(itemDiv);
+            });
+            
+            // Set today's date
+            document.getElementById('observationDate').valueAsDate = new Date();
+        }
+
+        function setRating(practiceNumber, rating) {
+            ratings[practiceNumber] = rating;
+            
+            // Update button states
+            const itemDiv = document.querySelectorAll('.practice-item')[practiceNumber - 1];
+            const buttons = itemDiv.querySelectorAll('.rating-btn');
+            
+            buttons.forEach((btn, index) => {
+                if (index + 1 === rating) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.classList.remove('selected');
+                }
+            });
+            
+            updateScore();
+        }
+
+        function updateScore() {
+            const total = Object.values(ratings).reduce((sum, rating) => sum + rating, 0);
+            const maxScore = 30;
+            
+            document.getElementById('totalScore').textContent = `${total} / ${maxScore}`;
+            
+            let category = '';
+            if (Object.keys(ratings).length < 10) {
+                category = 'Complete all ratings';
+            } else if (total >= 25) {
+                category = '⭐ Super';
+            } else if (total >= 17) {
+                category = '✓ So-So';
+            } else {
+                category = '📈 Improvement Needed';
+            }
+            
+            document.getElementById('scoreRating').textContent = category;
+        }
+
+        function printForm() {
+            window.print();
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                ratings = {};
+                document.getElementById('teacherName').value = '';
+                document.getElementById('observerName').value = '';
+                document.getElementById('observationDate').valueAsDate = new Date();
+                document.getElementById('gradeSubject').value = '';
+                document.getElementById('comments').value = '';
+                
+                document.querySelectorAll('.rating-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                updateScore();
+            }
+        }
+
+        // Initialize form on load
+        initializeForm();
+    </script>
+</body>
+</html>
